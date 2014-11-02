@@ -202,7 +202,7 @@ case $1 in
         trap report_error ERR
         run_hook "$@"
         ;;
-    --install|--uninstall )
+    --install )
         install_hooks "$1"
         ;;
     --install-global|--installglobal )
