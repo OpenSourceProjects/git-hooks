@@ -2,6 +2,16 @@
 
 require_relative '../bash_colors'
 
+require 'optparse'
+
+OptionParser.new do |opts|
+  opts.on("--about") do
+    puts "Makes sure code does not contain any breaking point"
+  end
+end.parse!
+
+
+
 class PreCommitHandler
 
   attr_accessor :file_errors

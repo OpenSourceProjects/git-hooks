@@ -6,6 +6,14 @@ require_relative '../bash_colors'
 #
 # http://blog.bigbinary.com/2013/09/19/do-not-allow-force-pusht-to-master.html
 
+require 'optparse'
+
+OptionParser.new do |opts|
+  opts.on("--about") do
+    puts "Prevents force pushing to master"
+  end
+end.parse!
+
 class PrePushHandler
 
   def handle
@@ -35,10 +43,9 @@ class PrePushHandler
   end
 
   def forced_push?
-    ppid = Process.ppid
-    cmd = "ps -ocommand= -p #{ppid}"
-    output = `#{cmd}`
-    output.match(/--force|-f/)
+    cmd = `ps -ocommand`.strip
+    push_cmd = cmd.scan(/^git push .*master.*/)
+    !push_cmd.empty? && push_cmd.first.match(/--force|-f/)
   end
 
   def feedback messages

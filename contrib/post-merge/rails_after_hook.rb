@@ -2,6 +2,14 @@
 
 require_relative '../bash_colors'
 
+require 'optparse'
+
+OptionParser.new do |opts|
+  opts.on("--about") do
+    puts "Runs migrations and bundle if need be"
+  end
+end.parse!
+
 class PostMergeHandler
   attr_reader :files_changed
   def initialize
