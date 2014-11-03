@@ -150,6 +150,7 @@ function install_hooks
             return 1
         fi
     cmd='#!/usr/bin/env bash
+export GIT_HOOKS_VERBOSE=1 
 git-hooks run "$0" "$@"';
     install_hooks_into "${PWD}" "${cmd}"
     else
